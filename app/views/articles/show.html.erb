@@ -1,0 +1,17 @@
+<h1><%= @article.title %></h1>
+
+<p><%= @article.content %></p>
+
+<% if @article.image.present? %>
+  <p><%= image_tag @article.image.url, width: 400 %></p>
+<% end %>
+
+<p>Written by: <%= @article.user.email %></p>
+<p>Reports: <%= @article.reports_count || 0 %></p>
+
+<% if user_signed_in? && @article.user == current_user %>
+  <%= link_to "Edit", edit_article_path(@article) %> |
+  <%= link_to "Delete", @article, method: :delete, data: { confirm: "Are you sure?" } %>
+<% end %>
+
+<%= link_to "Back", articles_path %>
